@@ -1,2 +1,8 @@
 /home/tntan/workspace/4tshop/infashion.vn/src/main/java/com/inf/model/CategoryItemEntity.java
+/home/tntan/workspace/4tshop/infashion.vn/src/main/java/com/inf/model/RoleEntity.java
+/home/tntan/workspace/4tshop/infashion.vn/src/main/java/com/inf/data/SearchWrapper.java
+/home/tntan/workspace/4tshop/infashion.vn/src/main/java/com/inf/controller/HomeController.java
+/home/tntan/workspace/4tshop/infashion.vn/src/main/java/com/inf/dao/ItemDAOImpl.java
 /home/tntan/workspace/4tshop/infashion.vn/src/main/java/com/inf/model/ItemEntity.java
+/home/tntan/workspace/4tshop/infashion.vn/src/main/java/com/inf/dao/ItemDAO.java
+/home/tntan/workspace/4tshop/infashion.vn/src/main/java/com/inf/model/UserEntity.java

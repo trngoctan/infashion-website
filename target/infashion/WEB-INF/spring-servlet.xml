@@ -22,7 +22,9 @@
         <property name="prefix" value="/WEB-INF/views/" />
         <property name="suffix" value=".jsp" />
     </bean>
-     
+    
+    <mvc:resources mapping="/resources/**" location="/resources/theme/"  cache-period="20160301"/>
+	 
     <!-- This resolves messages from resource bundles for different locales --> 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="messages" />

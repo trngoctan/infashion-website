@@ -21,6 +21,7 @@ public class CategoryItemEntity implements Serializable {
 	@GeneratedValue
 	private Integer id;
 	private String name;
+	private String url;
 	
 	public CategoryItemEntity(){}
 
@@ -75,9 +76,23 @@ public class CategoryItemEntity implements Serializable {
 		this.items = items;
 	}
 
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + "]";
+		return "Category [id=" + id + ", name=" + name + ", url=" + url +  "]";
 	}
 
 }

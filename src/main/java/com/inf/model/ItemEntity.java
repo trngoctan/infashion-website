@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table (name="items")
 @NamedQueries(value={
-		@NamedQuery(name="ItemEntity.loadAll", query="SELECT a FROM ItemEntity a")
+		@NamedQuery(name="ItemEntity.findByCategory", query="SELECT item FROM ItemEntity item WHERE item.category.id = :id")
 	})
 public class ItemEntity implements Serializable 
 {
