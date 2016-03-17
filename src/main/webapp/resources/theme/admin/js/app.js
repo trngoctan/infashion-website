@@ -230,6 +230,12 @@ function _init() {
   'use strict';
   InFashion.utils = {
     getUrl: function (url, timeStamp) {
+      if (InFashion.config.contextPath != undefined) {
+        var __url = InFashion.config.contextPath + '/' + url;
+        __url += (InFashion.config.ext != '' && InFashion.config.ext != undefined) ? InFashion.config.ext : '';
+        __url += timeStamp ? '?_t=' + timeStamp : '';
+        return __url;
+      }
       return url + timeStamp?'?_t='+timeStamp:'';
     }
   };

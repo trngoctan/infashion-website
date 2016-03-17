@@ -1,3 +1,6 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -78,3 +81,9 @@
 <script type="text/javascript" src='<c:url value="/resources/admin/js/jquery/plugin/jquery.bootgrid.min.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/admin/js/jquery/plugin/jquery.bootgrid.fa.min.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/admin/js/app.js"/>'></script>
+<script type="text/javascript">
+    InFashion.config = {
+        contextPath: '${pageContext.request.contextPath}',
+        ext: ''
+    };
+</script>
