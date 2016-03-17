@@ -54,137 +54,16 @@
     </div>
     <aside class="col-md-3  hidden-sm hidden-xs">
         <!-- Sidebar menu-->
-        <div class="list-group" id="list-group-l">
-            <ul class="nav navs sidebar menu" id="cssmenu">
-                <div class="mega-left-title">
-                    <strong>Nhóm danh mục</strong>
-                </div>
-                <li class="item current active first">
-                    <a href="trangchu"> <span>Trang chủ</span></a>
-                </li>
-                <li class="item has-sub">
-                    <a href="#">
-                        <span class="lbl">Sản phẩm</span>
-                        <span data-toggle="collapse" data-parent="#cssmenu" href="#sub-item-2" class="sign collapsed">
-                            <img src='<c:url value="/resources/images/icon/arrow-down.png"/>'>
-                        </span>
-                    </a>
-                    <ul class="nav children collapse" id="sub-item-2">
-                        <li class="first">
-                            <a href="#" title="Mẹ bầu">
-                                <span>Mẹ bầu</span>
-                            </a>
-                        </li>
-                        <li class="last">
-                            <a href="#" title="Mẹ và bé">
-                                <span>Mẹ và bé</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="item">
-                    <a href="#"><span>Blog</span></a>
-                </li>
-                <li class="item last">
-                    <a href="#">
-                        <span>Giới thiệu</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <script>
-            $(document).ready(
-                    function () {
-                        //$('ul li:has(ul)').addClass('hassub');
-                        $('#cssmenu ul ul li:odd').addClass('odd');
-                        $('#cssmenu ul ul li:even').addClass('even');
-                        $('#cssmenu > ul > li > a').click(
-                                function () {
-                                    $('#cssmenu li').removeClass('active');
-                                    $(this).closest('li').addClass('active');
-                                    var checkElement = $(this).nextS();
-                                    if ((checkElement.is('ul')) && (checkElement.is(':visible'))) {
-                                        $(this).closest('li').removeClass('active');
-                                        checkElement.slideUp('normal');
-                                    }
-                                    if ((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
-                                        $('#cssmenu ul ul:visible').slideUp('normal');
-                                        checkElement.slideDown('normal');
-                                    }
-                                    if ($(this).closest('li').find('ul').children().length == 0) {
-                                        return true;
-                                    } else {
-                                        return false;
-                                    }
-                                });
-                        $('.drop-down').click(
-                                function (e) {
-                                    if ($(this).parents('li').hasClass('has-sub')) {
-                                        e.preventDefault();
-                                        if ($(this).hasClass('open-nav')) {
-                                            $(this).removeClass('open-nav');
-                                            $(this).parents('li').children('ul.lve2')
-                                                    .slideUp('normal')
-                                                    .removeClass('in');
-                                        } else {
-                                            $(this).addClass('open-nav');
-                                            $(this).parents('li').children('ul.lve2')
-                                                    .slideDown('normal')
-                                                    .addClass('in');
-                                        }
-                                    } else {
-                                    }
-                                });
-                    });
-            $("#list-group-l ul.navs li.active").parents('ul.children').addClass("in");
-        </script>
-        <!-- Sidebar menu-->
+        <jsp:directive.include file="boxes/category.jsp"/>
+        <!-- End Sidebar menu-->
         <!-- Support-->
-        <div class="sidebar-support list-group">
-			<span href="#" class="list-group-item active"> <img
-                    src="//hstatic.net/817/1000071817/1000101448/avatar-answ.png?v=1"
-                    class="img-responsive">
-			</span>
-            <h3>Hỗ trợ trực tuyến</h3>
-            <div class="support">
-                <div class="text-center">
-                    <p>
-                        <span class="supp-name">Support01</span> <br> <span class="phone">1900.0000</span>
-                    </p>
-                    <a href="skype:haravan.com?chat" class="skype">
-                        <img src="//hstatic.net/0/0/global/design/theme-default/skype-icon.png"
-                             class="img-responsive">
-                    </a>
-                    <a href="ymsgr:sendim?haravan.com" class="yahoo">
-                        <img src="//hstatic.net/0/0/global/design/theme-default/yahoo-icon.png"
-                             class="img-responsive">
-                    </a>
-                </div>
-                <div class="text-center">
-                    <span class="supp-name">Số hotline </span> <br>
-                    <p>0000.000.000</p>
-                </div>
-                <div class="text-center">
-                    <span class="supp-name">Thời gian làm việc </span>
-                    <p>Bất kể khi nào bạn cần, hỗ trợ 24/7, 7 ngày trong tuần</p>
-                </div>
-            </div>
-        </div>
+        <jsp:directive.include file="boxes/support.jsp"/>
         <!-- Support-->
         <!-- Facebook -->
         <!-- Facebook-->
         <!-- Banner quảng cáo -->
-        <div class="list-group_l banner-left">
-            <a href="/pages/about-us"> <img
-                    src="//hstatic.net/817/1000071817/1000101448/left_image_ad.jpg?v=1">
-            </a>
-        </div>
+        <jsp:directive.include file="boxes/ads-leftbar.jsp"/>
         <!-- Banner quảng cáo -->
-        <div class="list-group_2 banner-left">
-            <a href="/"> <img
-                    src="//hstatic.net/817/1000071817/1000101448/left_image_ad_2.jpg?v=1">
-            </a>
-        </div>
     </aside>
     <div class="col-md-9 col-sm-12 col-xs-12">
         <!-- Content-->
