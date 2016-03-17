@@ -17,7 +17,7 @@
                 <ul class="lv1">
                     <li><a href="trangchu">Trang chủ</a></li>
                     <li class="has-children icon icon-arrow-left">
-                        <a href="#">Sản phẩm</a>
+                        <a href="sanpham">Sản phẩm</a>
                         <div class="mp-level" data-level="2">
                             <h2>Sản phẩm</h2>
                             <a class="mp-back" href="#">Quay lại</a>

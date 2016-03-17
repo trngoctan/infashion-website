@@ -42,7 +42,7 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" title="Sản phẩm" class="has-submenu">
+                        <a href="sanpham" title="Sản phẩm" class="has-submenu">
                             <span>Sản phẩm</span>
                         </a>
                         <ul class="dropdown-menu sm-nowrap" role="menu" style="min-width: 10em; display: none; max-width: 20em; top: auto; left: 0px; margin-top: 0px; margin-left: 0px; width: auto;">
