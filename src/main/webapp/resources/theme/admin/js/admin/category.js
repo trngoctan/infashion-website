@@ -19,22 +19,25 @@ $(function () {
     };
     this.$listRole = $("#list-category");
     this.$modalCreate = $('#modal-create-category');
-    this.$inputRoleName = $('#category-name');
+    this.$inputCategoryName = $('#category-name');
+    this.$inputCategoryUrl = $('#category-url');
     var convertData = function (json) {
       return {
-        rows: json.items,
-        total: json.total,
-        current: json.currentPage
+        rows: json.list,
+        total: json.total
       }
     };
     this.$listRole.bootgrid({
+      url: InFashion.utils.getUrl('admin/categoryitem/list'),
       ajax: true,
-      url: 'https://dl.dropboxusercontent.com/u/8182319/data.json',
+      ajaxSettings: {
+        method: 'GET'
+      },
       responseHandler: convertData
     }).on('click.rs.jquery.bootgrid', function (e, columns, row) {
-      console.log('Edit row: ', row, 'with timeStamp: ', e.timeStamp);
       _this.setCateId(row.id);
-      _this.$inputRoleName.val(row.name);
+      _this.$inputCategoryName.val(row.name);
+      _this.$inputCategoryUrl.val(row.url);
       _this.$modalCreate.modal('show');
     });
     this.$modalCreate.on('click', 'button[data-action]', function () {
@@ -44,20 +47,6 @@ $(function () {
     this.$toolbar.CREATE.on('click', function () {
       _this.clear();
     });
-
-
-    var a = 'w3schools.com';
-    try {
-      adddlert("Welcome guest!");
-      console.log("Noi dung trong try");
-    } catch (errors) {
-
-    } finally {
-
-    }
-
-    console.log('Noi dung duoi try catch');
-
   };
   InFashion.CategoryItem.prototype = {
     setCateId: function (cateId) {
@@ -68,18 +57,29 @@ $(function () {
     },
     clear: function () {
       this.setCateId(null);
-      this.$inputRoleName.val('');
+      this.$inputCategoryName.val('');
+      this.$inputCategoryUrl.val('');
     },
     update: function () {
       // TODO: Update category
-      console.log('call update function');
+      $.post(InFashion.utils.getUrl('admin/categoryitem/update'), {
+        id: this.getCateId(),
+        name: this.$inputCategoryName.val(),
+        url: this.$inputCategoryUrl.val()
+      }, function (data) {
+        console.log('create data response ', data);
+      }, 'POST');
     },
     create: function () {
       // TODO: Create category
-      console.log('call create function');
+      $.post(InFashion.utils.getUrl('admin/categoryitem/save'), {
+        name: this.$inputCategoryName.val(),
+        url: this.$inputCategoryUrl.val()
+      }, function (data) {
+        console.log('create data response ', data);
+      }, 'POST');
     },
     save: function () {
-      console.log('call save function');
       (this.getCateId() != null) ? this.update() : this.create();
     }
   };

@@ -1,4 +1,7 @@
-			<aside class="main-sidebar">
+<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
+            <aside class="main-sidebar">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 335px;"><section class="sidebar" style="height: 335px; overflow: hidden; width: auto;">
                     <!-- Sidebar Menu -->
@@ -12,7 +15,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu menu-open" style="display: block;">
-                                <li><a href="category.html">Thể loại</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/categoryitem">Thể loại</a></li>
                                 <li><a href="item.html">Bài viết</a></li>
                             </ul>
                         </li>
