@@ -22,7 +22,7 @@ import com.inf.model.ItemEntity;
 
 @Repository
 @Transactional
-public class ItemDAOImpl implements ItemDAO 
+public class ItemDAOImpl extends DAOBase<ItemEntity> implements ItemDAO 
 {
 	
 	@PersistenceContext

@@ -3,18 +3,30 @@ package com.inf.controller.admin;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
 
+import com.inf.dao.CategoryItemDAO;
 import com.inf.data.SearchWrapper;
 import com.inf.model.CategoryItemEntity;
 
 @Controller
 public class CategoryItemController {
-
+	
+	@Autowired
+	CategoryItemDAO categoryItemDAO;
+	
 	public CategoryItemController(){}
 	
 	/**
@@ -29,11 +41,33 @@ public class CategoryItemController {
 	public @ResponseBody SearchWrapper<CategoryItemEntity> getSearchResultViaAjax() {
 		SearchWrapper<CategoryItemEntity> wrapper = new SearchWrapper<CategoryItemEntity>();
 		List<CategoryItemEntity> result = new ArrayList<CategoryItemEntity>();
-		result.add(new CategoryItemEntity(1, "Xa hoi"));
-		result.add(new CategoryItemEntity(2, "Kinh te"));
-		result.add(new CategoryItemEntity(3, "Thoi su"));
+		result.add(new CategoryItemEntity(1L, "Xa hoi"));
+		result.add(new CategoryItemEntity(2L, "Kinh te"));
+		result.add(new CategoryItemEntity(3L, "Thoi su"));
 		wrapper.setList(result);
 		wrapper.setTotal(100);
 		return wrapper;
+	}
+	
+	@RequestMapping(value = "/admin/categoryitem/save", method = RequestMethod.POST)
+	public @ResponseBody CategoryItemEntity save(@RequestBody CategoryItemEntity item , HttpServletRequest request) {
+		System.out.println("Category: " + item.toString());
+		if(!StringUtils.hasLength(item.getName())){
+			return null;
+		}
+		return categoryItemDAO.save(item);
+	}
+	
+	@RequestMapping(value = "/admin/categoryitem/update", method = RequestMethod.POST)
+	public @ResponseBody CategoryItemEntity update(@ModelAttribute("category_item") CategoryItemEntity item,
+			BindingResult result, SessionStatus status) {
+		if(!StringUtils.hasLength(item.getName())){
+			return null;
+		}
+		
+		if(StringUtils.isEmpty(item.getId())){
+			return null;
+		}
+		return categoryItemDAO.update(item.getId(), item);
 	}
 }

@@ -19,13 +19,13 @@ public class CategoryItemEntity implements Serializable {
 	
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Long id;
 	private String name;
 	private String url;
 	
 	public CategoryItemEntity(){}
 
-	public CategoryItemEntity(Integer id, String name) {
+	public CategoryItemEntity(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -37,14 +37,14 @@ public class CategoryItemEntity implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

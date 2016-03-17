@@ -1,4 +1,6 @@
 com/inf/data/SearchWrapper.class
+com/inf/dao/CategoryItemDAOImpl.class
+com/inf/dao/CategoryItemDAO.class
 com/inf/dao/DAOBase.class
 com/inf/model/ItemEntity.class
 com/inf/controller/admin/CategoryItemController.class
