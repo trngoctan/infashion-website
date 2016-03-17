@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,11 +49,17 @@ public class CategoryItemController {
 	}
 	
 	@RequestMapping(value = "/admin/categoryitem/save", method = RequestMethod.POST)
-	public @ResponseBody CategoryItemEntity save(@RequestBody CategoryItemEntity item , HttpServletRequest request) {
-		System.out.println("Category: " + item.toString());
-		if(!StringUtils.hasLength(item.getName())){
+	public @ResponseBody CategoryItemEntity save(HttpServletRequest request) {
+		String name = request.getParameter("name");
+		String url = request.getParameter("url");
+		if(!StringUtils.hasLength(name)){
 			return null;
 		}
+		
+		CategoryItemEntity item = new CategoryItemEntity();
+		item.setName(name);
+		item.setUrl(url);
+		
 		return categoryItemDAO.save(item);
 	}
 	
