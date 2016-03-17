@@ -1,0 +1,21 @@
+.main-footer {
+    background-color: #F5F5F5;
+    padding: 10px 15px;
+}
+.content-wrapper, .right-side {
+    background-color: #FFFFFF;
+}
+.content-toolbar {
+    padding: 5px 15px;
+    background: #F5F5F5;
+    margin-top: 10px;
+}
+.content-header {
+    padding-top: 10px;
+}
+.content-header>h1 {
+    font-size: 20px;
+}
+.content {
+    padding: 5px 15px;
+}

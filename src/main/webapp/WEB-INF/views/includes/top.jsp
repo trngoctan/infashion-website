@@ -75,7 +75,7 @@
                                 <!-- LOGO -->
                                 <h1>
                                     <a href="/">
-                                        <img src='<c:url value="=/resources/images/logo/logo-header.png"/>' alt="fmall" class="img-responsive">
+                                        <img src='<c:url value="/resources/images/logo/logo-header.png"/>' alt="fmall" class="img-responsive">
                                     </a>
                                 </h1>
                                 <h1 style="display:none">

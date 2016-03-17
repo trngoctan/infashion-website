@@ -1,8 +1,10 @@
 com/inf/data/SearchWrapper.class
+com/inf/dao/DAOBase.class
 com/inf/model/ItemEntity.class
+com/inf/controller/admin/CategoryItemController.class
 com/inf/model/RoleEntity.class
-com/inf/dao/ItemDAO.class
 com/inf/dao/ItemDAOImpl.class
+com/inf/dao/ItemDAO.class
 com/inf/controller/HomeController.class
 com/inf/model/UserEntity.class
 com/inf/model/CategoryItemEntity.class

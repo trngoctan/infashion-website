@@ -10,6 +10,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +48,13 @@ public class ItemDAOImpl implements ItemDAO
 //		  ParameterExpression<Integer> p = cb.parameter(Integer.class);
 //		  q.select(c).where(cb.gt(c.get("population"), p));
 		
+		Session session = manager.unwrap(Session.class);
+        Criteria criteria = session.createCriteria(ItemEntity.class);
+        criteria.add(Restrictions.eq("key", "123").ignoreCase());
+//        if (target != null) {
+//           criteria.add(Restrictions.like("target", target, MatchMode.ANYWHERE).ignoreCase());
+//        }
+		criteria.setMaxResults(10);
 		
 		return wrapper;
 	}
