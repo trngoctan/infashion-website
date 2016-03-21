@@ -6,11 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,24 +50,17 @@ public class CategoryItemController {
 		return wrapper;
 	}
 	
-	@RequestMapping(value = "/admin/categoryitem/save", method = RequestMethod.POST)
-	public @ResponseBody CategoryItemEntity save(HttpServletRequest request) {
-		String name = request.getParameter("name");
-		String url = request.getParameter("url");
-		if(!StringUtils.hasLength(name)){
+	@RequestMapping(value = "/admin/categoryitem/save", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody CategoryItemEntity save(@RequestBody CategoryItemEntity item, HttpServletRequest request) {
+		if(!StringUtils.hasLength(item.getName())){
 			return null;
 		}
-		
-		CategoryItemEntity item = new CategoryItemEntity();
-		item.setName(name);
-		item.setUrl(url);
 		
 		return categoryItemDAO.save(item);
 	}
 	
-	@RequestMapping(value = "/admin/categoryitem/update", method = RequestMethod.POST)
-	public @ResponseBody CategoryItemEntity update(@ModelAttribute("category_item") CategoryItemEntity item,
-			BindingResult result, SessionStatus status) {
+	@RequestMapping(value = "/admin/categoryitem/update", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody CategoryItemEntity update(@RequestBody CategoryItemEntity item, HttpServletRequest request) {
 		if(!StringUtils.hasLength(item.getName())){
 			return null;
 		}

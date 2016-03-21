@@ -11,8 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table (name="category_item")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class CategoryItemEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
