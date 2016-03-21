@@ -5,3 +5,21 @@
 .bootgrid-table {
     margin-bottom: 0;
 }
+.bootgrid-table th.col-id {
+    width: 10%;
+}
+.bootgrid-table th.command.cmd-1{
+    width: 5%;
+}
+.bootgrid-table th.command.cmd-2{
+    width: 10%;
+}
+.bootgrid-table th.command.cmd-3{
+    width: 15%;
+}
+.bootgrid-table th.command.cmd-4{
+    width: 20%;
+}
+.bootgrid-table th.command.cmd-5{
+    width: 25%;
+}

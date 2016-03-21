@@ -80,6 +80,7 @@
 <script type="text/javascript" src='<c:url value="/resources/admin/js/jquery/plugin/fastclick.min.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/admin/js/jquery/plugin/jquery.bootgrid.min.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/admin/js/jquery/plugin/jquery.bootgrid.fa.min.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/admin/js/hashtable.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/admin/js/app.js"/>'></script>
 <script type="text/javascript">
     InFashion.config = {

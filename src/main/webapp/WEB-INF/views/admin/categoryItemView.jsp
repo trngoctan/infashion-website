@@ -30,24 +30,11 @@
                     <table id="list-category" class="table table-hover table-bordered">
                         <thead>
                         <tr>
-                            <th data-column-id="id" data-type="numeric">ID</th>
+                            <th data-column-id="id" data-formatter="idFormatter" data-align="center" data-header-align="center" data-header-css-class="col-id" data-type="numeric">ID</th>
                             <th data-column-id="name">Tên thể loại</th>
+                            <th data-column-id="commands" data-align="center" data-header-css-class="command" data-formatter="commands" data-sortable="false"></th>
                         </tr>
                         </thead>
-                        <!--<tbody>-->
-                        <!--<tr>-->
-                        <!--<td>1</td>-->
-                        <!--<td>Thời sự</td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                        <!--<td>2</td>-->
-                        <!--<td>Kinh doanh</td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                        <!--<td>3</td>-->
-                        <!--<td>Số hóa</td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
                     </table>
                     <!-- Modal Create -->
                     <div class="modal fade" id="modal-create-category" tabindex="-1" role="dialog" aria-labelledby="modal-create-label">
