@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -34,6 +35,7 @@ public class CategoryItemEntity implements Serializable {
 		this.name = name;
 	}
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="category",cascade=CascadeType.PERSIST)
     private List<ItemEntity> items = new ArrayList<ItemEntity>();
 	
