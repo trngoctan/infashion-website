@@ -11,6 +11,11 @@
  * @author nbchicong
  */
 $(function () {
+  class CategoryBase {
+    gotoHome() {
+      console.log('');
+    }
+  }
   InFashion.CategoryItem = function () {
     var _this = this;
     this.id = '';
@@ -97,38 +102,82 @@ $(function () {
       this.remove();
     },
     update: function () {
+      var _this = this;
       // TODO: Update category
-      this.grid.bootgrid('reload');
-      $.post(InFashion.utils.getUrl('admin/categoryitem/update'), {
-        id: this.getCateId(),
-        name: this.$inputCategoryName.val(),
-        url: this.$inputCategoryUrl.val()
-      }, function (data) {
+      // this.grid.bootgrid('reload');
+      // $.post(InFashion.utils.getUrl('admin/categoryitem/update'), {
+      //   id: this.getCateId(),
+      //   name: this.$inputCategoryName.val(),
+      //   url: this.$inputCategoryUrl.val()
+      // }, function (data) {
+      //   console.log('create data response ', data);
+      // }, 'JSON');
+      var request = $.ajax({
+        url: InFashion.utils.getUrl('admin/categoryitem/update'),
+        method: 'POST',
+        data: JSON.stringify({
+          id: this.getCateId(),
+          name: this.$inputCategoryName.val(),
+          url: this.$inputCategoryUrl.val()
+        }),
+        dataType: 'JSON',
+        contentType: 'application/json'
+      });
+      request.done(function (data) {
         console.log('create data response ', data);
-      }, 'POST');
+        _this.grid.bootgrid('reload');
+      });
     },
     create: function () {
+      var _this = this;
       // TODO: Create category
-      this.grid.bootgrid('reload');
-      $.post(InFashion.utils.getUrl('admin/categoryitem/save'), {
-        name: this.$inputCategoryName.val(),
-        url: this.$inputCategoryUrl.val()
-      }, function (data) {
+      // this.grid.bootgrid('reload');
+      // $.post(InFashion.utils.getUrl('admin/categoryitem/save'), {
+      //   name: this.$inputCategoryName.val(),
+      //   url: this.$inputCategoryUrl.val()
+      // }, function (data) {
+      //   console.log('create data response ', data);
+      // }, 'JSON');
+      var request = $.ajax({
+        url: InFashion.utils.getUrl('admin/categoryitem/save'),
+        method: 'POST',
+        data: JSON.stringify({
+          name: this.$inputCategoryName.val(),
+          url: this.$inputCategoryUrl.val()
+        }),
+        dataType: 'JSON',
+        contentType: 'application/json'
+      });
+      request.done(function (data) {
         console.log('create data response ', data);
-      }, 'POST');
+        _this.grid.bootgrid('append', data);
+      });
     },
     save: function () {
       (this.getCateId() != null) ? this.update() : this.create();
     },
     remove: function () {
       var _this = this;
-      this.grid.bootgrid('remove', _this.getCateId());
-      $.post(InFashion.utils.getUrl('admin/categoryitem/delete'), {
-        id: this.getCateId()
-      }, function (data) {
+      // this.grid.bootgrid('remove', _this.getCateId());
+      // $.post(InFashion.utils.getUrl('admin/categoryitem/delete'), {
+      //   id: this.getCateId()
+      // }, function (data) {
+      //   console.log('create data response ', data);
+      //   _this.grid.bootgrid('remove', _this.getCateId());
+      // }, 'JSON');
+      var request = $.ajax({
+        url: InFashion.utils.getUrl('admin/categoryitem/delete'),
+        method: 'POST',
+        data: JSON.stringify({
+          id: this.getCateId()
+        }),
+        dataType: 'JSON',
+        contentType: 'application/json'
+      });
+      request.done(function (data) {
         console.log('create data response ', data);
-        _this.grid.bootgrid('remove', _this.getCateId());
-      }, 'POST');
+        _this.grid.bootgrid('remove', {id: _this.getCateId()});
+      });
     }
   };
   new InFashion.CategoryItem();
