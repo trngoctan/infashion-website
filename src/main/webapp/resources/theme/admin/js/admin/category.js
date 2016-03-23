@@ -24,7 +24,7 @@ $(function () {
     this.$toolbar = {
       CREATE: $('#btn-create')
     };
-    this.$listRole = $("#list-category");
+    this.$listCategory = $("#list-category");
     this.$modalCreate = $('#modal-create-category');
     this.$inputCategoryName = $('#category-name');
     this.$inputCategoryUrl = $('#category-url');
@@ -35,7 +35,7 @@ $(function () {
         total: json.total
       }
     };
-    this.grid = this.$listRole.bootgrid({
+    this.grid = this.$listCategory.bootgrid({
       url: InFashion.utils.getUrl('admin/categoryitem/list'),
       ajax: true,
       ajaxSettings: {
@@ -88,6 +88,7 @@ $(function () {
     },
     clear: function () {
       this.setCateId(null);
+      this.store.clear();
       this.$inputCategoryName.val('');
       this.$inputCategoryUrl.val('');
     },
