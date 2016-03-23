@@ -12,18 +12,22 @@
     <link href='<c:url value="/resources/images/icon/favicon.png"/>' rel="shortcut icon" type="image/png">
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-<title>Người dùng | InFashion</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Người dùng | InFashion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<link rel="stylesheet" href="<c:url value="/resources/css/owl.carousel.css" />">
-<link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css"/>'>
-<link rel="stylesheet" href='<c:url value="/resources/css/font-awesome.min.css"/>'>
-<link rel="stylesheet" href='<c:url value="/resources/admin/css/ionicons.min.css"/>'>
-<link rel="stylesheet" href='<c:url value="/resources/admin/css/plugin/jquery.bootgrid.min.css"/>'>
-<link rel="stylesheet" href='<c:url value="/resources/admin/css/bootgrid.custom.css"/>'>
-<link rel="stylesheet" href='<c:url value="/resources/admin/css/admin-lte.min.css"/>'>
-<link rel="stylesheet" href='<c:url value="/resources/admin/css/skin-blue.min.css"/>'>
-<link rel="stylesheet" href='<c:url value="/resources/admin/css/infashion.css"/>'>
+    <link rel="stylesheet" href="<c:url value="/resources/css/owl.carousel.css" />">
+    <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/css/font-awesome.min.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/admin/css/ionicons.min.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/admin/css/plugin/jquery.bootgrid.min.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/admin/css/bootgrid.custom.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/admin/css/admin-lte.min.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/admin/css/skin-blue.min.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/admin/css/infashion.css"/>'>
+    <!--[if lt IE 9]>
+    <script src='<c:url value="/resources/admin/js/html5/html5shiv.min.js"/>'></script>
+    <script src='<c:url value="/resources/admin/js/respond/respond.min.js"/>'></script>
+    <![endif]-->
 </head>
 <body class="skin-blue sidebar-mini fixed">
 	<div class="wrapper">
