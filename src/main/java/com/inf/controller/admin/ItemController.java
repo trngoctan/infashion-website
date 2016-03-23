@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.inf.dao.CategoryItemDAO;
 import com.inf.dao.ItemDAO;
 import com.inf.data.Result;
-import com.inf.data.SearchWrapper;
-import com.inf.model.CategoryItemEntity;
 import com.inf.model.ItemEntity;
 
 @Controller
