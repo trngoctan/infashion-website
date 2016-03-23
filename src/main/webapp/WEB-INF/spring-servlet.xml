@@ -42,6 +42,7 @@
             <prop key="hibernate.show_sql">true</prop>
             <prop key="hibernate.connection.useUnicode">true</prop>
             <prop key="hibernate.connection.characterEncoding">UTF-8</prop>
+            <prop key="hibernate.connection.charSet">UTF-8</prop>
             <prop key="javax.persistence.query.timeout">120000</prop>
             <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
          </props>
@@ -52,7 +53,7 @@
    		configuring the plain old JDBC DriverManager via bean properties -->
    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-      <property name="url" value="jdbc:mysql://localhost:3306/infashion" />
+      <property name="url" value="jdbc:mysql://localhost:3306/infashion?useUnicode=true&amp;characterEncoding=UTF-8" />
       <property name="username" value="root" />
       <property name="password" value="root" />
    </bean>
