@@ -1,15 +1,10 @@
 package com.inf.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -29,9 +24,7 @@ public class UserEntity implements Serializable {
 	private String fullName;
 	private String email;
 	private String phone;
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="admin_user_role")
-    private List<RoleEntity> roles = new ArrayList<RoleEntity>();
+	private String roles;
 	
 	public UserEntity(){}
 
@@ -140,26 +133,20 @@ public class UserEntity implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-
-
+	
 	/**
 	 * @return the roles
 	 */
-	public List<RoleEntity> getRoles() {
+	public String getRoles() {
 		return roles;
 	}
-
-
 
 	/**
 	 * @param roles the roles to set
 	 */
-	public void setRoles(List<RoleEntity> roles) {
+	public void setRoles(String roles) {
 		this.roles = roles;
 	}
-
-
 
 	@Override
 	public String toString() {

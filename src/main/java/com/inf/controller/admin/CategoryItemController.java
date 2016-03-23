@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inf.dao.CategoryItemDAO;
+import com.inf.data.Result;
 import com.inf.data.SearchWrapper;
 import com.inf.model.CategoryItemEntity;
 
@@ -63,9 +64,8 @@ public class CategoryItemController {
 	}
 	
 	@RequestMapping(value = "/admin/categoryitem/delete", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody CategoryItemEntity delete(@RequestBody CategoryItemEntity item, HttpServletRequest request) {
-			
-		
-		return categoryItemDAO.save(item);
+	public @ResponseBody Result delete(@RequestBody CategoryItemEntity item, HttpServletRequest request) {
+		categoryItemDAO.delete(item);
+		return new Result(true);
 	}
 }
