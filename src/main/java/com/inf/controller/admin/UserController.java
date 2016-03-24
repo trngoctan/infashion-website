@@ -60,7 +60,7 @@ public class UserController {
 		return dao.update(entity);
 	}
 	
-	@RequestMapping(value = "/admin/user/update", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/admin/user/resetpassword", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody UserEntity resetPassword(@RequestBody UserEntity item, HttpServletRequest request) {
 		UserEntity entity = dao.load(item.getId());
 		if(entity == null){
@@ -72,7 +72,7 @@ public class UserController {
 		return dao.update(entity);
 	}
 	
-	@RequestMapping(value = "/admin/item/delete", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/admin/user/delete", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Result delete(@RequestBody UserEntity item, HttpServletRequest request) {
 		dao.delete(item);
 		return new Result(true);
