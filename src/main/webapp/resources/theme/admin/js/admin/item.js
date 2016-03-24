@@ -33,15 +33,17 @@ $(function () {
       content: $('#txt-item-content')
     };
     var convertData = function (json) {
-      _this.pushAll(json.list || []);
+      _this.pushAll(BaseUI.isEmpty(json.list)?[]:json.list);
       return {
-        rows: json.list,
+        rows: BaseUI.isEmpty(json.list)?[]:json.list,
         total: json.total
       }
     };
     this.grid = this.$listItem.bootgrid({
       url: InFashion.utils.getUrl('admin/item/list'),
       ajax: true,
+      rowCount: 10,
+      columnSelection: false,
       ajaxSettings: {
         method: 'GET'
       },
@@ -56,7 +58,7 @@ $(function () {
     }).on('loaded.rs.jquery.bootgrid', function (e, columns, row) {
       _this.grid.find('[data-action]').on('click', function (e) {
         var __action = $(this).data('action') + 'Row';
-        var __record = _this.getById($(this).data('row-id'));
+        var __record = _this.getEntityById($(this).data('row-id'));
         _this[__action].call(_this, __record);
       });
     });
@@ -75,39 +77,19 @@ $(function () {
     this.editor.on('change', function (e) {
       _this.setContent(e.editor.getData());
     });
+    InFashion.ItemEntity.superclass.constructor.call(this);
   };
-  InFashion.ItemEntity.prototype = {
-    setItemId: function (id) {
-      this.itemId = id;
-    },
-    getItemId: function () {
-      return this.itemId || null;
-    },
+  BaseUI.extend(InFashion.ItemEntity, InFashion.Entity, {
     setContent: function (content) {
       this.formContent = content;
     },
     getContent: function () {
       return this.formContent || '';
     },
-    getIdProperties: function () {
-      return this.idProperties;
-    },
-    pushAll: function (data) {
-      var __data = data || [];
-      for (var i = 0; i < __data.length; i++) {
-        this.store.put(__data[i][this.getIdProperties()], __data[i]);
-      }
-    },
-    getById: function (id) {
-      return this.getStore().get(id);
-    },
-    getStore: function () {
-      return this.store;
-    },
     clear: function () {
-      this.setItemId(null);
+      this.setEntityId(null);
       this.setContent('');
-      this.store.clear();
+      this.clearStore();
       this.$formModel.subject.val('');
       this.$formModel.brief.val('');
       this.$formModel.image.val('');
@@ -132,18 +114,18 @@ $(function () {
       };
     },
     editRow: function (row) {
-      this.setItemId(row[this.getIdProperties()]);
+      this.setEntityId(row[this.getIdProperties()]);
       this.setFormData(row);
       this.next();
     },
     removeRow: function (row) {
-      this.setItemId(row[this.getIdProperties()]);
+      this.setEntityId(row[this.getIdProperties()]);
       this.remove();
     },
     update: function () {
       var _this = this;
       var __data = this.getFormData();
-      __data.id = this.getItemId();
+      __data.id = this.getEntityId();
       // TODO: Update item
       console.log('call update function');
       var request = $.ajax({
@@ -160,6 +142,8 @@ $(function () {
     },
     create: function () {
       var _this = this;
+      var __data = this.getFormData();
+      __data.created = new Date().getTime();
       // TODO: Create item
       console.log('call create function');
       var request = $.ajax({
@@ -176,20 +160,20 @@ $(function () {
     },
     save: function () {
       console.log('call save function');
-      (this.getItemId() != null) ? this.update() : this.create();
+      (this.getEntityId() != null) ? this.update() : this.create();
     },
     remove: function () {
       var _this = this;
       var request = $.ajax({
         url: InFashion.utils.getUrl('admin/item/delete'),
         method: 'POST',
-        data: JSON.stringify(this.getById(this.getItemId())),
+        data: JSON.stringify(this.getEntityById(this.getEntityId())),
         dataType: 'JSON',
         contentType: 'application/json'
       });
       request.done(function (data) {
         console.log('create data response ', data);
-        _this.grid.bootgrid('remove', {id: _this.getItemId()});
+        _this.grid.bootgrid('reload');
       });
     },
     prev: function () {
@@ -206,6 +190,6 @@ $(function () {
       this.$listItemBox.hide();
       this.$formCreateItem.show();
     }
-  };
+  });
   new InFashion.ItemEntity();
 });
