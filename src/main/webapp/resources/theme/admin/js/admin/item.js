@@ -14,6 +14,8 @@ $(function () {
   InFashion.ItemEntity = function () {
     var _this = this;
     this.id = '';
+    this.idProperties = 'id';
+    this.store = new Hashtable();
     this.$toolbar = {
       BACK: $('#btn-back'),
       CREATE: $('#btn-create'),
@@ -30,10 +32,33 @@ $(function () {
       category: $('#cbb-item-category'),
       content: $('#txt-item-content')
     };
-    this.$listItem.bootgrid().on('click.rs.jquery.bootgrid', function (e, columns, row) {
-      console.log('Edit row: ', row, 'with timeStamp: ', e.timeStamp);
-      _this.setFormData(row);
-      _this.next();
+    var convertData = function (json) {
+      _this.pushAll(json.list || []);
+      return {
+        rows: json.list,
+        total: json.total
+      }
+    };
+    this.grid = this.$listItem.bootgrid({
+      url: InFashion.utils.getUrl('admin/item/list'),
+      ajax: true,
+      ajaxSettings: {
+        method: 'GET'
+      },
+      responseHandler: convertData,
+      formatters: {
+        commands: function(column, row) {
+          $('[data-column-id="'+column.id+'"]').addClass('cmd-2');
+          return '<button type="button" class="btn btn-xs btn-primary command-edit" data-action="edit" data-row-id="' + row[_this.getIdProperties()] + '"><span class="fa fa-pencil"></span></button> ' +
+              '<button type="button" class="btn btn-xs btn-danger command-delete" data-action="remove" data-row-id="' + row[_this.getIdProperties()] + '"><span class="fa fa-trash-o"></span></button>';
+        }
+      }
+    }).on('loaded.rs.jquery.bootgrid', function (e, columns, row) {
+      _this.grid.find('[data-action]').on('click', function (e) {
+        var __action = $(this).data('action') + 'Row';
+        var __record = _this.getById($(this).data('row-id'));
+        _this[__action].call(_this, __record);
+      });
     });
     this.$toolbar.BACK.on('click', function () {
       _this.prev();
@@ -64,9 +89,25 @@ $(function () {
     getContent: function () {
       return this.formContent || '';
     },
+    getIdProperties: function () {
+      return this.idProperties;
+    },
+    pushAll: function (data) {
+      var __data = data || [];
+      for (var i = 0; i < __data.length; i++) {
+        this.store.put(__data[i][this.getIdProperties()], __data[i]);
+      }
+    },
+    getById: function (id) {
+      return this.getStore().get(id);
+    },
+    getStore: function () {
+      return this.store;
+    },
     clear: function () {
       this.setItemId(null);
       this.setContent('');
+      this.store.clear();
       this.$formModel.subject.val('');
       this.$formModel.brief.val('');
       this.$formModel.image.val('');
@@ -90,17 +131,66 @@ $(function () {
         content: this.getContent()
       };
     },
+    editRow: function (row) {
+      this.setItemId(row[this.getIdProperties()]);
+      this.setFormData(row);
+      this.next();
+    },
+    removeRow: function (row) {
+      this.setItemId(row[this.getIdProperties()]);
+      this.remove();
+    },
     update: function () {
+      var _this = this;
+      var __data = this.getFormData();
+      __data.id = this.getItemId();
       // TODO: Update item
       console.log('call update function');
+      var request = $.ajax({
+        url: InFashion.utils.getUrl('admin/item/update'),
+        method: 'POST',
+        data: JSON.stringify(__data),
+        dataType: 'JSON',
+        contentType: 'application/json'
+      });
+      request.done(function (data) {
+        console.log('create data response ', data);
+        _this.grid.bootgrid('reload');
+      });
     },
     create: function () {
+      var _this = this;
       // TODO: Create item
       console.log('call create function');
+      var request = $.ajax({
+        url: InFashion.utils.getUrl('admin/item/save'),
+        method: 'POST',
+        data: JSON.stringify(this.getFormData()),
+        dataType: 'JSON',
+        contentType: 'application/json'
+      });
+      request.done(function (data) {
+        console.log('create data response ', data);
+        _this.grid.bootgrid('reload');
+      });
     },
     save: function () {
       console.log('call save function');
       (this.getItemId() != null) ? this.update() : this.create();
+    },
+    remove: function () {
+      var _this = this;
+      var request = $.ajax({
+        url: InFashion.utils.getUrl('admin/item/delete'),
+        method: 'POST',
+        data: JSON.stringify(this.getById(this.getItemId())),
+        dataType: 'JSON',
+        contentType: 'application/json'
+      });
+      request.done(function (data) {
+        console.log('create data response ', data);
+        _this.grid.bootgrid('remove', {id: _this.getItemId()});
+      });
     },
     prev: function () {
       this.$toolbar.BACK.hide();
