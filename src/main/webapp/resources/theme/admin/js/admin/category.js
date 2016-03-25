@@ -11,11 +11,6 @@
  * @author nbchicong
  */
 $(function () {
-  class CategoryBase {
-    gotoHome() {
-      console.log('');
-    }
-  }
   InFashion.CategoryItem = function () {
     var _this = this;
     this.id = '';
@@ -29,15 +24,17 @@ $(function () {
     this.$inputCategoryName = $('#category-name');
     this.$inputCategoryUrl = $('#category-url');
     var convertData = function (json) {
-      _this.pushAll(json.list || []);
+      _this.pushAll(BaseUI.isEmpty(json.list)?[]:json.list);
       return {
-        rows: json.list,
+        rows: BaseUI.isEmpty(json.list)?[]:json.list,
         total: json.total
       }
     };
     this.grid = this.$listCategory.bootgrid({
       url: InFashion.utils.getUrl('admin/categoryitem/list'),
       ajax: true,
+      rowCount: 10,
+      columnSelection: false,
       ajaxSettings: {
         method: 'GET'
       },
@@ -52,7 +49,7 @@ $(function () {
     }).on('loaded.rs.jquery.bootgrid', function () {
       _this.grid.find('[data-action]').on('click', function (e) {
         var __action = $(this).data('action') + 'Row';
-        var __record = _this.getById($(this).data('row-id'));
+        var __record = _this.getEntityById($(this).data('row-id'));
         _this[__action].call(_this, __record);
       });
     });
@@ -62,44 +59,23 @@ $(function () {
     this.$toolbar.CREATE.on('click', function () {
       _this.clear();
     });
-    console.log(this.grid);
+    InFashion.CategoryItem.superclass.constructor.call(this);
   };
-  InFashion.CategoryItem.prototype = {
-    setCateId: function (cateId) {
-      this.cateId = cateId;
-    },
-    getCateId: function () {
-      return this.cateId || null;
-    },
-    getIdProperties: function () {
-      return this.idProperties;
-    },
-    pushAll: function (data) {
-      var __data = data || [];
-      for (var i = 0; i < __data.length; i++) {
-        this.store.put(__data[i][this.getIdProperties()], __data[i]);
-      }
-    },
-    getById: function (id) {
-      return this.getStore().get(id);
-    },
-    getStore: function () {
-      return this.store;
-    },
+  BaseUI.extend(InFashion.CategoryItem, InFashion.Entity, {
     clear: function () {
-      this.setCateId(null);
-      this.store.clear();
+      this.setEntityId(null);
+      this.clearStore();
       this.$inputCategoryName.val('');
       this.$inputCategoryUrl.val('');
     },
     editRow: function (row) {
-      this.setCateId(row[this.getIdProperties()]);
+      this.setEntityId(row[this.getIdProperties()]);
       this.$inputCategoryName.val(row.name);
       this.$inputCategoryUrl.val(row.url);
       this.$modalCreate.modal('show');
     },
     removeRow: function (row) {
-      this.setCateId(row[this.getIdProperties()]);
+      this.setEntityId(row[this.getIdProperties()]);
       this.remove();
     },
     update: function () {
@@ -107,7 +83,7 @@ $(function () {
       // TODO: Update category
       // this.grid.bootgrid('reload');
       // $.post(InFashion.utils.getUrl('admin/categoryitem/update'), {
-      //   id: this.getCateId(),
+      //   id: this.getEntityId(),
       //   name: this.$inputCategoryName.val(),
       //   url: this.$inputCategoryUrl.val()
       // }, function (data) {
@@ -117,7 +93,7 @@ $(function () {
         url: InFashion.utils.getUrl('admin/categoryitem/update'),
         method: 'POST',
         data: JSON.stringify({
-          id: this.getCateId(),
+          id: this.getEntityId(),
           name: this.$inputCategoryName.val(),
           url: this.$inputCategoryUrl.val()
         }),
@@ -151,35 +127,36 @@ $(function () {
       });
       request.done(function (data) {
         console.log('create data response ', data);
-        _this.grid.bootgrid('append', data);
+        _this.$modalCreate.modal('hide');
+        _this.grid.bootgrid('reload');
       });
     },
     save: function () {
-      (this.getCateId() != null) ? this.update() : this.create();
+      (this.getEntityId() != null) ? this.update() : this.create();
     },
     remove: function () {
       var _this = this;
-      // this.grid.bootgrid('remove', _this.getCateId());
+      // this.grid.bootgrid('remove', _this.getEntityId());
       // $.post(InFashion.utils.getUrl('admin/categoryitem/delete'), {
-      //   id: this.getCateId()
+      //   id: this.getEntityId()
       // }, function (data) {
       //   console.log('create data response ', data);
-      //   _this.grid.bootgrid('remove', _this.getCateId());
+      //   _this.grid.bootgrid('remove', _this.getEntityId());
       // }, 'JSON');
       var request = $.ajax({
         url: InFashion.utils.getUrl('admin/categoryitem/delete'),
         method: 'POST',
         data: JSON.stringify({
-          id: this.getCateId()
+          id: this.getEntityId()
         }),
         dataType: 'JSON',
         contentType: 'application/json'
       });
       request.done(function (data) {
-        console.log('create data response ', data);
-        _this.grid.bootgrid('remove', {id: _this.getCateId()});
+        console.log('remove data response ', data);
+        _this.grid.bootgrid('reload');
       });
     }
-  };
+  });
   new InFashion.CategoryItem();
 });
