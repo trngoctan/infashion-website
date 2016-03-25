@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inf.model.UserEntity;
 
-@Repository
+@Repository("UserDAOImpl")
 @Transactional
 public class UserDAOImpl extends AbstractDAO<Long, UserEntity> implements UserDAO 
 {
