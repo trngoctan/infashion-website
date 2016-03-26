@@ -1,5 +1,6 @@
 package com.inf.controller.admin;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inf.dao.UserDAO;
 import com.inf.data.Result;
+import com.inf.data.SearchWrapper;
 import com.inf.model.UserEntity;
 import com.inf.utils.UserUtils;
 
@@ -34,7 +36,16 @@ public class UserController {
 	public String setupForm(Model model) {
 		return "admin/userView";
 	}
-	
+
+	@RequestMapping(value = "/admin/user/list", method = RequestMethod.GET)
+	public @ResponseBody SearchWrapper<UserEntity> getSearchResultViaAjax() {
+		SearchWrapper<UserEntity> results = new SearchWrapper<UserEntity>();
+		List<UserEntity> listUser = dao.query();
+		results.setList(listUser);
+		results.setTotal(listUser.size());
+		return results;
+	}
+
 	@RequestMapping(value = "/admin/user/save", method = RequestMethod.POST, consumes={MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody UserEntity save(@RequestBody UserEntity item, HttpServletRequest request) {
 		if(!StringUtils.hasLength(item.getUserName())){
