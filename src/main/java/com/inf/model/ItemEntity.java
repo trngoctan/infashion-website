@@ -1,7 +1,7 @@
 package com.inf.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +10,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-@Table (name="items")
+@Table (name="item")
+@JsonIgnoreProperties(ignoreUnknown=true)
 @NamedQueries(value={
 		@NamedQuery(name="ItemEntity.findByCategory", query="SELECT item FROM ItemEntity item WHERE item.category.id = :id")
 	})
@@ -34,11 +37,10 @@ public class ItemEntity implements Serializable
 	@NotEmpty
 	private String content;
 	private String tags;
-	@NotNull
 	private Date created;
 	private String image;
 	private int viewed;
-	@NotNull
+	@JsonIgnore
 	@ManyToOne
 	private CategoryItemEntity category;
 	
@@ -161,6 +163,29 @@ public class ItemEntity implements Serializable
 	 */
 	public void setViewed(int viewed) {
 		this.viewed = viewed;
+	}
+
+	
+	
+	/**
+	 * @return the category
+	 */
+	public CategoryItemEntity getCategory() {
+		return category;
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(CategoryItemEntity category) {
+		this.category = category;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Override

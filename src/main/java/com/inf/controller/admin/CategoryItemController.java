@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,11 +44,10 @@ public class CategoryItemController {
 	@RequestMapping(value = "/admin/categoryitem/save", method = RequestMethod.POST, 
 			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE, 
 					MediaType.APPLICATION_OCTET_STREAM_VALUE})
-	public @ResponseBody CategoryItemEntity save(@RequestBody CategoryItemEntity item, HttpServletRequest request) {
+	public @ResponseBody CategoryItemEntity save(@RequestHeader CategoryItemEntity item, HttpServletRequest request) {
 		if(!StringUtils.hasLength(item.getName())){
 			return null;
 		}
-		System.out.println("Name: " + item.getName());
 		return categoryItemDAO.save(item);
 	}
 	
