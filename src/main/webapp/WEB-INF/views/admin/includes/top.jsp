@@ -12,7 +12,7 @@
     <link href='<c:url value="/resources/images/icon/favicon.png"/>' rel="shortcut icon" type="image/png">
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <title>Người dùng | InFashion</title>
+    <%--<title>Người dùng | InFashion</title>--%>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link rel="stylesheet" href="<c:url value="/resources/css/owl.carousel.css" />">

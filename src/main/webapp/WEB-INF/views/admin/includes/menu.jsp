@@ -15,8 +15,8 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu menu-open" style="display: block;">
-                                <li><a href="${pageContext.request.contextPath}/admin/categoryitem">Thể loại</a></li>
-                                <li><a href="item.html">Bài viết</a></li>
+                                <li id="menu-category"><a href="categoryitem">Thể loại</a></li>
+                                <li id="menu-item"><a href="item">Bài viết</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -26,8 +26,8 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu" style="display: none;">
-                                <li><a href="roles.html">Phân quyền</a></li>
-                                <li class=""><a href="user.html">Người dùng</a></li>
+                                <li id="menu-roles"><a href="roles">Phân quyền</a></li>
+                                <li id="menu-user" class=""><a href="user">Người dùng</a></li>
                             </ul>
                         </li>
                     </ul><!-- /.sidebar-menu -->
