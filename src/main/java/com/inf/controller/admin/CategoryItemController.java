@@ -41,10 +41,8 @@ public class CategoryItemController {
 		return categoryItemDAO.search(null, 0, 0);
 	}
 	
-	@RequestMapping(value = "/admin/categoryitem/save", method = RequestMethod.POST, 
-			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE, 
-					MediaType.APPLICATION_OCTET_STREAM_VALUE})
-	public @ResponseBody CategoryItemEntity save(@RequestHeader CategoryItemEntity item, HttpServletRequest request) {
+	@RequestMapping(value = "/admin/categoryitem/save", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody CategoryItemEntity save(@RequestBody CategoryItemEntity item, HttpServletRequest request) {
 		if(!StringUtils.hasLength(item.getName())){
 			return null;
 		}
