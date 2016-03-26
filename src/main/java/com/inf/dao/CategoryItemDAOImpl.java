@@ -21,7 +21,8 @@ public class CategoryItemDAOImpl extends AbstractDAO<Long, CategoryItemEntity> i
 		SearchWrapper<CategoryItemEntity> searchWrapper = new SearchWrapper<CategoryItemEntity>();
 		List<CategoryItemEntity> entities = this.query();
 		searchWrapper.setList(entities);
-		
+		searchWrapper.setTotal(entities.size());
+
 		return searchWrapper;
 	}		
 }
