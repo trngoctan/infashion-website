@@ -172,6 +172,17 @@ BaseUI.apply = function (obj, config, defaults) {
       return value === null || value === undefined || (!allowBlank ? value === '' : false);
     },
     /**
+     * Returns true if the passed object is a number. Returns false for
+     * non-finite numbers.
+     *
+     * @param {Object}
+     *          v The object to test
+     * @return {Boolean}
+     */
+    isNumber: function (v) {
+      return typeof v === 'number' && isFinite(v);
+    },
+    /**
      * Returns true if the passed object is a JavaScript array, otherwise false.
      * @param {Object} object The object to test
      * @return {Boolean}
@@ -409,6 +420,39 @@ BaseUI.apply = function (obj, config, defaults) {
      */
     get: function (index) {
       return this[index];
+    }
+  });
+
+  BaseUI.apply(Function.prototype, {
+    /**
+     * Creates a delegate (callback) that sets the scope to obj. Call directly
+     * on any function. Example:
+     * <code>this.myFunction.createDelegate(this, [arg1, arg2])</code> Will
+     * create a function that is automatically scoped to obj so that the
+     * <tt>this</tt> variable inside the callback points to obj.
+     *
+     * @param {Object}
+     *          obj (optional) The object for which the scope is set
+     * @param {Array} args (optional) Overrides arguments for the call. (Defaults to the arguments passed by the caller)
+     * @param {Boolean/Number} appendArgs (optional) if True args are appended to call args
+     *          instead of overriding, if a number the args are inserted at the specified position
+     * @return {Function} The new function
+     */
+    createDelegate: function (obj, args, appendArgs) {
+      var method = this;
+      return function () {
+        var callArgs = args || arguments;
+        if (appendArgs === true) {
+          callArgs = Array.prototype.slice.call(arguments, 0);
+          callArgs = callArgs.concat(args);
+        }
+        else if (BaseUI.isNumber(appendArgs)) {
+          callArgs = Array.prototype.slice.call(arguments, 0); // copy arguments first
+          var applyArgs = [appendArgs, 0].concat(args); // create method call params
+          Array.prototype.splice.apply(callArgs, applyArgs); // splice them in
+        }
+        return method.apply(obj || window, callArgs);
+      };
     }
   });
 })();
