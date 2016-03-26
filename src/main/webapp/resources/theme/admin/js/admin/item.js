@@ -32,13 +32,6 @@ $(function () {
       category: $('#cbb-item-category'),
       content: $('#txt-item-content')
     };
-    var convertData = function (json) {
-      _this.pushAll(BaseUI.isEmpty(json.list)?[]:json.list);
-      return {
-        rows: BaseUI.isEmpty(json.list)?[]:json.list,
-        total: json.total
-      }
-    };
     this.grid = this.$listItem.bootgrid({
       url: InFashion.utils.getUrl('admin/item/list'),
       ajax: true,
@@ -47,7 +40,7 @@ $(function () {
       ajaxSettings: {
         method: 'GET'
       },
-      responseHandler: convertData,
+      responseHandler: this.convertData.createDelegate(this),
       formatters: {
         commands: function(column, row) {
           $('[data-column-id="'+column.id+'"]').addClass('cmd-2');
@@ -109,7 +102,7 @@ $(function () {
         subject: this.$formModel.subject.val(),
         brief: this.$formModel.brief.val(),
         image: this.$formModel.image.val(),
-        category: this.$formModel.category.val(),
+        category: {id: this.$formModel.category.val()},
         content: this.getContent()
       };
     },
@@ -126,7 +119,6 @@ $(function () {
       var _this = this;
       var __data = this.getFormData();
       __data.id = this.getEntityId();
-      // TODO: Update item
       console.log('call update function');
       var request = $.ajax({
         url: InFashion.utils.getUrl('admin/item/update'),
@@ -138,24 +130,25 @@ $(function () {
       request.done(function (data) {
         console.log('create data response ', data);
         _this.grid.bootgrid('reload');
+        // _this.prev();
       });
     },
     create: function () {
       var _this = this;
       var __data = this.getFormData();
       __data.created = new Date().getTime();
-      // TODO: Create item
       console.log('call create function');
       var request = $.ajax({
         url: InFashion.utils.getUrl('admin/item/save'),
         method: 'POST',
-        data: JSON.stringify(this.getFormData()),
+        data: JSON.stringify(__data),
         dataType: 'JSON',
         contentType: 'application/json'
       });
       request.done(function (data) {
         console.log('create data response ', data);
         _this.grid.bootgrid('reload');
+        // _this.prev();
       });
     },
     save: function () {
@@ -179,14 +172,14 @@ $(function () {
     prev: function () {
       this.$toolbar.BACK.hide();
       this.$toolbar.SAVE.hide();
-      this.$toolbar.CREATE.show();
+      // this.$toolbar.CREATE.show();
       this.$formCreateItem.hide();
       this.$listItemBox.show();
     },
     next: function () {
       this.$toolbar.BACK.show();
       this.$toolbar.SAVE.show();
-      this.$toolbar.CREATE.hide();
+      // this.$toolbar.CREATE.hide();
       this.$listItemBox.hide();
       this.$formCreateItem.show();
     }

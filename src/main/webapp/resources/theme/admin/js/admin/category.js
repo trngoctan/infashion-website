@@ -23,13 +23,6 @@ $(function () {
     this.$modalCreate = $('#modal-create-category');
     this.$inputCategoryName = $('#category-name');
     this.$inputCategoryUrl = $('#category-url');
-    var convertData = function (json) {
-      _this.pushAll(BaseUI.isEmpty(json.list)?[]:json.list);
-      return {
-        rows: BaseUI.isEmpty(json.list)?[]:json.list,
-        total: json.total
-      }
-    };
     this.grid = this.$listCategory.bootgrid({
       url: InFashion.utils.getUrl('admin/categoryitem/list'),
       ajax: true,
@@ -38,7 +31,7 @@ $(function () {
       ajaxSettings: {
         method: 'GET'
       },
-      responseHandler: convertData,
+      responseHandler: this.convertData.createDelegate(this),
       formatters: {
         commands: function(column, row) {
           $('[data-column-id="'+column.id+'"]').addClass('cmd-2');
@@ -80,15 +73,6 @@ $(function () {
     },
     update: function () {
       var _this = this;
-      // TODO: Update category
-      // this.grid.bootgrid('reload');
-      // $.post(InFashion.utils.getUrl('admin/categoryitem/update'), {
-      //   id: this.getEntityId(),
-      //   name: this.$inputCategoryName.val(),
-      //   url: this.$inputCategoryUrl.val()
-      // }, function (data) {
-      //   console.log('create data response ', data);
-      // }, 'JSON');
       var request = $.ajax({
         url: InFashion.utils.getUrl('admin/categoryitem/update'),
         method: 'POST',
@@ -107,14 +91,6 @@ $(function () {
     },
     create: function () {
       var _this = this;
-      // TODO: Create category
-      // this.grid.bootgrid('reload');
-      // $.post(InFashion.utils.getUrl('admin/categoryitem/save'), {
-      //   name: this.$inputCategoryName.val(),
-      //   url: this.$inputCategoryUrl.val()
-      // }, function (data) {
-      //   console.log('create data response ', data);
-      // }, 'JSON');
       var request = $.ajax({
         url: InFashion.utils.getUrl('admin/categoryitem/save'),
         method: 'POST',
@@ -136,13 +112,6 @@ $(function () {
     },
     remove: function () {
       var _this = this;
-      // this.grid.bootgrid('remove', _this.getEntityId());
-      // $.post(InFashion.utils.getUrl('admin/categoryitem/delete'), {
-      //   id: this.getEntityId()
-      // }, function (data) {
-      //   console.log('create data response ', data);
-      //   _this.grid.bootgrid('remove', _this.getEntityId());
-      // }, 'JSON');
       var request = $.ajax({
         url: InFashion.utils.getUrl('admin/categoryitem/delete'),
         method: 'POST',

@@ -43,6 +43,15 @@
     clearStore: function () {
       this.store.clear();
     },
+    convertData: function (dataJson) {
+      var __list = dataJson.list;
+      this.pushAll(BaseUI.isEmpty(__list)?[]:__list);
+      return {
+        rows: BaseUI.isEmpty(__list)?[]:__list,
+        rowCount: 10,
+        total: dataJson.total
+      }
+    },
     create: function () {},
     update: function () {},
     remove: function () {}

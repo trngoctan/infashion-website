@@ -1,8 +1,10 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:directive.include file="includes/top.jsp" />
 <jsp:directive.include file="includes/menu.jsp" />
+<title>Bài viết | InFashion</title>
 
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -54,9 +56,9 @@
                             <label for="cbb-item-category" class="col-sm-1 control-label">Thể loại</label>
                             <div class="col-sm-3">
                                 <select class="form-control" id="cbb-item-category">
-                                    <option value="1">Thời sự</option>
-                                    <option value="2">Kinh doanh</option>
-                                    <option value="3">Số hóa</option>
+                                <c:forEach items="${cateList}" var="cate">
+                                    <option value="${cate.id}" data-url="${cate.url}">${cate.name}</option>
+                                </c:forEach>
                                 </select>
                             </div>
                         </div>

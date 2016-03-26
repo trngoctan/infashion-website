@@ -3,6 +3,7 @@
 
 <jsp:directive.include file="includes/top.jsp" />
 <jsp:directive.include file="includes/menu.jsp" />
+<title>Thể loại tin tức | InFashion</title>
 
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
