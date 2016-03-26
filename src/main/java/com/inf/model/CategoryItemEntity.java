@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table (name="category_item")
+@Table(name="category_item")
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class CategoryItemEntity implements Serializable {
 
